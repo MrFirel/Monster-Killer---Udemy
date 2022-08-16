@@ -51,18 +51,23 @@ function writeToLog(event, value, monsterHealth, playerHealth) {
     switch (event) {
         case EVENT_PLAYER_ATTACK: {
             logEntry('MONSTER');
+            break;
         }
         case EVENT_PLAYER_STRONG_ATTACK: {
             logEntry('MONSTER');
+            break;
         }
         case EVENT_MONSTER_ATTACK: {
-            logEntry('PLAYER');           
+            logEntry('PLAYER'); 
+            break;          
         }
         case EVENT_PLAYER_HEAL: {
             logEntry('PLAYER');
+            break;
         }
         case EVENT_GAME_OVER: {
             logEntry();
+            break;
         }
     }
     battleLog.push(logEntryData);
@@ -87,7 +92,7 @@ function damageToMonster (damage, attack) {
     } else if (attack == EVENT_PLAYER_STRONG_ATTACK) {
         attackDamage = dealMonsterDamage(damage);
         currentMonsterHealth -= attackDamage;
-        writeToLog(EVENT_PLAYER_ATTACK, attackDamage, currentMonsterHealth, currentPlayerHealth);
+        writeToLog(EVENT_PLAYER_STRONG_ATTACK, attackDamage, currentMonsterHealth, currentPlayerHealth);
     }
 }
 
@@ -145,7 +150,9 @@ function endRound() {
 }
 
 function printLogHandler() {
-    console.log(battleLog);
+    for (const logEntry of battleLog) {
+        console.log(logEntry);
+    }
 }
 
 attackBtn.addEventListener('click', attackHandler);
